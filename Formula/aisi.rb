@@ -1,28 +1,28 @@
 class Aisi < Formula
   desc "CLI tool for managing AI agent resources across multiple editors"
   homepage "https://github.com/rosseca/aisi"
-  version "0.1.0"
+  version "0.2.0"
   license "MIT"
 
   on_macos do
     on_intel do
-      url "https://github.com/rosseca/aisi/releases/download/v0.1.0/aisi_0.1.0_darwin_amd64.tar.gz"
-      sha256 "88e4c496c69837c3a8aab754372c2d43be17d2f9bfa64752d55e9fe13ba8b00d"
+      url "https://github.com/rosseca/aisi/releases/download/v0.2.0/aisi_0.2.0_darwin_amd64.tar.gz"
+      sha256 "ddaedcc73941ba8425afa664695674a43099163c709012410f5be6d7bbf95977"
     end
     on_arm do
-      url "https://github.com/rosseca/aisi/releases/download/v0.1.0/aisi_0.1.0_darwin_arm64.tar.gz"
-      sha256 "b9fade681d8e31756db77fafa6f46082a3573fee8576cb1539297445e40e87c8"
+      url "https://github.com/rosseca/aisi/releases/download/v0.2.0/aisi_0.2.0_darwin_arm64.tar.gz"
+      sha256 "f45a7136c7f7ae938907018af03a61862da3d9e1e2e4ff329bb1d1c4b2f8743a"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/rosseca/aisi/releases/download/v0.1.0/aisi_0.1.0_linux_amd64.tar.gz"
-      sha256 "8859144ed96ec34ddbdf46b378fae2f2619c7649b5d9c2ba83e1389b1c1303f0"
+      url "https://github.com/rosseca/aisi/releases/download/v0.2.0/aisi_0.2.0_linux_amd64.tar.gz"
+      sha256 "7d172a749b5fe3088fd042440a32ce0bd49ccabeee09a9ce696fcd6bec2b6e99"
     end
     on_arm do
-      url "https://github.com/rosseca/aisi/releases/download/v0.1.0/aisi_0.1.0_linux_arm64.tar.gz"
-      sha256 "6cdfa9df3316440f4e3324e0ef91cd22653c03d3d6b0e1f12d162244ae54ec4e"
+      url "https://github.com/rosseca/aisi/releases/download/v0.2.0/aisi_0.2.0_linux_arm64.tar.gz"
+      sha256 "60485c1c182b8923a7b4d28a93481006bcb7977b779c13f4081fb141fa35a801"
     end
   end
 
