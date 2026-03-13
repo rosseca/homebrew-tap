@@ -28,9 +28,6 @@ class Aisi < Formula
 
   def install
     bin.install "aisi"
-    bash_completion.install "completions/aisi.bash" => "aisi"
-    zsh_completion.install "completions/aisi.zsh" => "_aisi"
-    fish_completion.install "completions/aisi.fish"
   end
 
   test do
