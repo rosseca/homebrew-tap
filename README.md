@@ -12,6 +12,10 @@ Rosseca Homebrew tap.
 
 [Codemagic Watch](https://github.com/akmarinov/codemagic-watch) is a small CLI that polls the Codemagic Builds API, prints status transitions, emits JSON events, and exits with meaningful codes for automation.
 
+### `codemagic-watch@0.2.0`
+
+Version-pinned formula for the latest published `codemagic-watch` release currently available in the tap rollout.
+
 ## Installation
 
 ```bash
@@ -24,9 +28,13 @@ brew install aisi
 # Install codemagic-watch
 brew install codemagic-watch
 
+# Install the pinned 0.2.0 formula
+brew install codemagic-watch@0.2.0
+
 # Or install directly without tapping
 brew install rosseca/tap/aisi
 brew install rosseca/tap/codemagic-watch
+brew install rosseca/tap/codemagic-watch@0.2.0
 ```
 
 ## Updating
@@ -35,6 +43,7 @@ brew install rosseca/tap/codemagic-watch
 # Update all packages from this tap
 brew upgrade rosseca/tap/aisi
 brew upgrade rosseca/tap/codemagic-watch
+brew upgrade rosseca/tap/codemagic-watch@0.2.0
 
 # Or update everything
 brew upgrade
@@ -45,6 +54,7 @@ brew upgrade
 ```bash
 brew uninstall aisi
 brew uninstall codemagic-watch
+brew uninstall codemagic-watch@0.2.0
 brew untap rosseca/tap
 ```
 
