@@ -77,12 +77,22 @@ jobs:
     if: needs.prepare.outputs.changed == 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 5
-    permissions:
-      contents: write
     steps:
+      - name: Require the dedicated publisher key
+        env:
+          TAP_PUBLISH_KEY: ${{ secrets.KILO_PROXY_TAP_DEPLOY_KEY }}
+        run: |
+          if [ -z "$TAP_PUBLISH_KEY" ]; then
+            echo "::error::Configure KILO_PROXY_TAP_DEPLOY_KEY with the tap's dedicated write deploy key before enabling publication."
+            exit 1
+          fi
       - uses: actions/checkout@v4
         with:
           ref: main
+          # This tap requires PR review. Its dedicated deploy key can publish
+          # tested updates, but cannot bypass deletion or force-push protection.
+          ssh-key: ${{ secrets.KILO_PROXY_TAP_DEPLOY_KEY }}
+          ssh-strict: true
       - name: Require the tested tap base
         env:
           TESTED_BASE: ${{ needs.prepare.outputs.base-sha }}
