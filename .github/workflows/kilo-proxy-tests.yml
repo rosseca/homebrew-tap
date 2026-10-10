@@ -29,6 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          repository: rosseca/homebrew-tap
           ref: ${{ inputs.base-sha || github.sha }}
           persist-credentials: false
       - uses: actions/download-artifact@v4
@@ -65,16 +66,32 @@ jobs:
       HOMEBREW_NO_INSTALL_CLEANUP: "1"
       HOMEBREW_NO_ANALYTICS: "1"
     steps:
-      # setup-homebrew creates the tap checkout itself. Select the tested base
-      # and overlay the candidate afterward so its reset cannot erase either.
+      # setup-homebrew may create a checkout for the calling repository. Select
+      # this tap's tested base afterward, then register that exact workspace.
       - name: Set up Homebrew
         uses: Homebrew/actions/setup-homebrew@fccef3b26268fc4a788fd7ad7c189f3a105cbf13
         with:
           stable: true
       - uses: actions/checkout@v4
         with:
+          repository: rosseca/homebrew-tap
           ref: ${{ inputs.base-sha || github.sha }}
           persist-credentials: false
+      - name: Register the exact tested tap workspace
+        shell: bash
+        run: |
+          tap_path="$(brew --repository)/Library/Taps/rosseca/homebrew-tap"
+          if [ -e "$tap_path" ] || [ -L "$tap_path" ]; then
+            if ! test "$tap_path" -ef "$GITHUB_WORKSPACE"; then
+              echo "::error::Homebrew's rosseca/tap path conflicts with the tested workspace."
+              exit 1
+            fi
+          else
+            mkdir -p "$(dirname "$tap_path")"
+            ln -s "$GITHUB_WORKSPACE" "$tap_path"
+          fi
+          brew trust rosseca/tap
+          test "$(brew --repository rosseca/tap)" -ef "$GITHUB_WORKSPACE"
       - uses: actions/download-artifact@v4
         if: inputs.candidate-artifact != ''
         with:
