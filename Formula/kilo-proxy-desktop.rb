@@ -4,7 +4,6 @@ class KiloProxyDesktop < Formula
   url "https://github.com/rosseca/kilo-proxy.git",
       tag:      "v0.56.3",
       revision: "a641f41ea3c70e321dbcc6a21f5763b6d38f85d3"
-  version "0.56.3"
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build

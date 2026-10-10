@@ -302,7 +302,6 @@ class UpdateTests(unittest.TestCase):
         shutil.copytree(TAP / "templates", self.root / "templates")
         (self.root / "Formula").mkdir()
         (self.root / "Formula/kilo-proxy-desktop.rb").write_text('''class KiloProxyDesktop < Formula
-  version "0.56.2"
   url "https://github.com/rosseca/kilo-proxy.git",
       tag: "v0.56.2",
       revision: "0000000000000000000000000000000000000000"
@@ -432,6 +431,27 @@ end
         result = updater.render_desktop(source, metadata())
         self.assertIn('      tag:      "v0.56.3",', result)
         self.assertIn(f'      revision: "{COMMIT}"', result)
+
+    def test_formula_versions_are_inferred_from_url_or_tag(self):
+        files = updater.render_files(self.root, metadata())
+        for name in ("Formula/kilo-proxy-headless.rb", "Formula/kilo-proxy-desktop.rb"):
+            with self.subTest(name=name):
+                self.assertNotRegex(files[name].decode(), r'(?m)^  version ')
+        self.assertIn(b'      tag: "v0.56.3",', files["Formula/kilo-proxy-desktop.rb"])
+        self.assertIn(b"kilo-proxy-headless-0.56.3-linux-arm64.tar.gz", files["Formula/kilo-proxy-headless.rb"])
+
+    def test_desktop_redundant_explicit_version_is_rejected(self):
+        source = (self.root / "Formula/kilo-proxy-desktop.rb").read_text()
+        source += '  version "0.56.2"\n'
+        with self.assertRaisesRegex(updater.VerificationError, "infer its version"):
+            updater.render_desktop(source, metadata())
+
+    def test_offline_check_catches_desktop_tag_version_mismatch(self):
+        self.install_fixture()
+        formula = self.root / "Formula/kilo-proxy-desktop.rb"
+        formula.write_text(formula.read_text().replace('tag: "v0.56.3"', 'tag: "v0.56.2"'))
+        with self.assertRaisesRegex(updater.VerificationError, "out of date: Formula/kilo-proxy-desktop.rb"):
+            updater.check_files(self.root, metadata())
 
 
 if __name__ == "__main__":

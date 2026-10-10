@@ -261,8 +261,9 @@ def verify_downloads(metadata: dict, download: Callable = fetch) -> None:
 
 def render_desktop(source: str, metadata: dict) -> str:
     require('url "https://github.com/rosseca/kilo-proxy.git",' in source, "Desktop formula must build from the fixed Kilo Proxy repository")
+    require(re.search(r'^  version[ \t]', source, flags=re.MULTILINE) is None,
+            "Desktop formula must infer its version from the release tag")
     fields = [
-        (r'^(  version )"[^"\n]+"$', metadata["version"]),
         (r'^([ \t]*tag:[ \t]+)"[^"\n]+"(,?)$', metadata["tag"]),
         (r'^([ \t]*revision:[ \t]+)"[^"\n]+"(,?)$', metadata["commit"]),
     ]
@@ -271,7 +272,7 @@ def render_desktop(source: str, metadata: dict) -> str:
             suffix = match.group(2) if match.lastindex == 2 else ""
             return f'{match.group(1)}"{value}"{suffix}'
         source, count = re.subn(pattern, replace, source, flags=re.MULTILINE)
-        require(count == 1, "Desktop formula version/tag/revision contract changed")
+        require(count == 1, "Desktop formula tag/revision contract changed")
     return source
 
 

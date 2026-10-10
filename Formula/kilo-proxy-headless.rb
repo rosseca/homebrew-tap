@@ -1,7 +1,6 @@
 class KiloProxyHeadless < Formula
   desc "Console-only local proxy for AI coding clients"
   homepage "https://github.com/rosseca/kilo-proxy"
-  version "0.56.3"
 
   on_macos do
     on_intel do

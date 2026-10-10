@@ -15,8 +15,8 @@ cask "kilo-proxy" do
   app "kilo-proxy-#{version}-darwin-#{arch}/Kilo Proxy.app"
 
   caveats <<~EOS
-    This upstream app is ad-hoc signed, not Developer ID signed or notarized.
-    Homebrew preserves macOS quarantine; it does not bypass Gatekeeper.
+    This cask preserves the upstream app's signing status and macOS quarantine.
+    Homebrew does not sign or notarize the app or bypass Gatekeeper.
     Your Kilo Proxy profiles and chats are not removed by this cask.
   EOS
 end
