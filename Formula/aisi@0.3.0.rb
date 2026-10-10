@@ -1,8 +1,9 @@
 class AisiAT030 < Formula
   desc "CLI tool for managing AI agent resources across multiple editors"
   homepage "https://github.com/rosseca/aisi"
-  version "0.3.0"
   license "MIT"
+
+  keg_only :versioned_formula
 
   on_macos do
     on_intel do
@@ -25,8 +26,6 @@ class AisiAT030 < Formula
       sha256 "9a9e46a86648a3748d5c48a87138fab8ce361a0cfeb4f0a3598b044f51117f64"
     end
   end
-
-  keg_only :versioned_formula
 
   def install
     bin.install "aisi"

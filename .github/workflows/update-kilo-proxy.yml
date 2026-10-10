@@ -1,0 +1,114 @@
+name: Update Kilo Proxy
+
+on:
+  schedule:
+    # Offset from the start of the hour, when GitHub's schedule is busiest.
+    - cron: "7,22,37,52 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: update-kilo-proxy
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    outputs:
+      changed: ${{ steps.candidate.outputs.changed }}
+      base-sha: ${{ steps.candidate.outputs.base-sha }}
+      version: ${{ steps.candidate.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Test updater
+        run: python3 -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Check and download the latest stable public release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/update_kilo_proxy.py
+      - id: candidate
+        name: Stage candidate package definitions
+        run: |
+          echo "base-sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+          python3 - <<'PY'
+          import json, os, subprocess, shutil
+          from pathlib import Path
+          paths = ['Formula/kilo-proxy-headless.rb', 'Formula/kilo-proxy-desktop.rb',
+                   'Casks/kilo-proxy.rb', 'kilo-proxy-release.json']
+          changed = subprocess.run(['git', 'diff', '--quiet', '--', *paths]).returncode
+          if changed not in (0, 1):
+              raise SystemExit('Cannot inspect candidate changes')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'changed={str(bool(changed)).lower()}\n')
+              output.write('version=' + json.loads(Path(paths[-1]).read_text())['version'] + '\n')
+          if changed:
+              candidate = Path(os.environ['RUNNER_TEMP']) / 'candidate'
+              for name in paths:
+                  target = candidate / name
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copyfile(name, target)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: steps.candidate.outputs.changed == 'true'
+        with:
+          name: kilo-proxy-candidate
+          path: ${{ runner.temp }}/candidate/
+          if-no-files-found: error
+          retention-days: 7
+
+  validate:
+    needs: prepare
+    if: needs.prepare.outputs.changed == 'true'
+    uses: ./.github/workflows/kilo-proxy-tests.yml
+    with:
+      candidate-artifact: kilo-proxy-candidate
+      base-sha: ${{ needs.prepare.outputs.base-sha }}
+    permissions:
+      contents: read
+
+  publish:
+    needs: [prepare, validate]
+    if: needs.prepare.outputs.changed == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require the dedicated publisher key
+        env:
+          TAP_PUBLISH_KEY: ${{ secrets.KILO_PROXY_TAP_DEPLOY_KEY }}
+        run: |
+          if [ -z "$TAP_PUBLISH_KEY" ]; then
+            echo "::error::Configure KILO_PROXY_TAP_DEPLOY_KEY with the tap's dedicated write deploy key before enabling publication."
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          # This tap requires PR review. Its dedicated deploy key can publish
+          # tested updates, but cannot bypass deletion or force-push protection.
+          ssh-key: ${{ secrets.KILO_PROXY_TAP_DEPLOY_KEY }}
+          ssh-strict: true
+      - name: Require the tested tap base
+        env:
+          TESTED_BASE: ${{ needs.prepare.outputs.base-sha }}
+        run: test "$(git rev-parse HEAD)" = "$TESTED_BASE"
+      - uses: actions/download-artifact@v4
+        with:
+          name: kilo-proxy-candidate
+          path: .
+      - name: Recheck exact package definitions
+        run: python3 scripts/update_kilo_proxy.py --check
+      - name: Commit tested release update
+        env:
+          RELEASE_VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add Formula/kilo-proxy-headless.rb Formula/kilo-proxy-desktop.rb Casks/kilo-proxy.rb kilo-proxy-release.json
+          git commit -m "Update Kilo Proxy to ${RELEASE_VERSION}"
+          git push origin HEAD:main
