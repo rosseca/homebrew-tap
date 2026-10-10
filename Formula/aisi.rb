@@ -1,7 +1,6 @@
 class Aisi < Formula
   desc "CLI tool for managing AI agent resources across multiple editors"
   homepage "https://github.com/rosseca/aisi"
-  version "0.5.0"
   license "MIT"
 
   on_macos do
