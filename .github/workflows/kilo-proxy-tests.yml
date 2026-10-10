@@ -1,0 +1,121 @@
+name: Kilo Proxy Homebrew
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_call:
+    inputs:
+      candidate-artifact:
+        description: Validated release files prepared by the updater
+        required: false
+        type: string
+        default: ""
+      base-sha:
+        required: false
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  metadata:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      upstream-commit: ${{ steps.release.outputs.commit }}
+      version: ${{ steps.release.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base-sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        if: inputs.candidate-artifact != ''
+        with:
+          name: ${{ inputs.candidate-artifact }}
+          path: .
+      - name: Test release validation and generation
+        run: python3 -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Check committed package definitions
+        run: python3 scripts/update_kilo_proxy.py --check
+      - id: release
+        name: Read checked release identity
+        run: |
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          release = json.loads(Path('kilo-proxy-release.json').read_text())
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f"commit={release['commit']}\nversion={release['version']}\n")
+          PY
+
+  install:
+    name: Install (${{ matrix.os }})
+    needs: metadata
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-15, macos-15-intel, ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    env:
+      HOMEBREW_NO_AUTO_UPDATE: "1"
+      HOMEBREW_NO_INSTALL_CLEANUP: "1"
+      HOMEBREW_NO_ANALYTICS: "1"
+    steps:
+      # setup-homebrew creates the tap checkout itself. Select the tested base
+      # and overlay the candidate afterward so its reset cannot erase either.
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@fccef3b26268fc4a788fd7ad7c189f3a105cbf13
+        with:
+          stable: true
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.base-sha || github.sha }}
+          persist-credentials: false
+      - uses: actions/download-artifact@v4
+        if: inputs.candidate-artifact != ''
+        with:
+          name: ${{ inputs.candidate-artifact }}
+          path: .
+      - name: Check Homebrew definitions
+        run: |
+          test "$(brew --repository rosseca/tap)" -ef "$GITHUB_WORKSPACE"
+          python3 scripts/update_kilo_proxy.py --check
+          brew style Formula/kilo-proxy-headless.rb Formula/kilo-proxy-desktop.rb Casks/kilo-proxy.rb
+          brew audit --strict --formula rosseca/tap/kilo-proxy-headless
+      - name: Install and exercise headless package
+        run: |
+          brew install rosseca/tap/kilo-proxy-headless
+          brew test rosseca/tap/kilo-proxy-headless
+      - name: Install and exercise Linux desktop
+        if: runner.os == 'Linux'
+        run: |
+          brew audit --strict --formula rosseca/tap/kilo-proxy-desktop
+          brew install --build-from-source rosseca/tap/kilo-proxy-desktop
+          brew install --only-dependencies --include-test rosseca/tap/kilo-proxy-desktop
+          brew linkage --test rosseca/tap/kilo-proxy-desktop
+          brew test --keep-tmp rosseca/tap/kilo-proxy-desktop
+      - name: Install macOS app in an isolated directory
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p "$RUNNER_TEMP/kilo-apps"
+          brew audit --strict --cask rosseca/tap/kilo-proxy
+          brew install --cask --appdir="$RUNNER_TEMP/kilo-apps" rosseca/tap/kilo-proxy
+          codesign --verify --deep --strict "$RUNNER_TEMP/kilo-apps/Kilo Proxy.app"
+      - name: Check out matching upstream smoke test
+        if: runner.os == 'macOS'
+        uses: actions/checkout@v4
+        with:
+          repository: rosseca/kilo-proxy
+          ref: ${{ needs.metadata.outputs.upstream-commit }}
+          path: upstream-kilo
+          persist-credentials: false
+      - name: Exercise installed macOS app with a temporary profile
+        if: runner.os == 'macOS'
+        run: |
+          python3 upstream-kilo/scripts/smoke_desktop.py \
+            --binary "$RUNNER_TEMP/kilo-apps/Kilo Proxy.app/Contents/MacOS/kilo-proxy" \
+            --version '${{ needs.metadata.outputs.version }}'
