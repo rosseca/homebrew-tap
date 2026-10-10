@@ -1,9 +1,11 @@
 name: Update Kilo Proxy
 
 on:
-  schedule:
-    # Offset from the start of the hour, when GitHub's schedule is busiest.
-    - cron: "7,22,37,52 * * * *"
+  workflow_call:
+    secrets:
+      KILO_PROXY_TAP_DEPLOY_KEY:
+        description: Dedicated SSH deploy key with write access to rosseca/homebrew-tap only
+        required: true
   workflow_dispatch:
 
 permissions:
@@ -24,6 +26,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          repository: rosseca/homebrew-tap
           ref: main
           persist-credentials: false
       - name: Test updater
@@ -88,6 +91,7 @@ jobs:
           fi
       - uses: actions/checkout@v4
         with:
+          repository: rosseca/homebrew-tap
           ref: main
           # This tap requires PR review. Its dedicated deploy key can publish
           # tested updates, but cannot bypass deletion or force-push protection.
