@@ -1,90 +1,90 @@
 {
   "assets": [
     {
-      "id": 662190652,
+      "id": 662544924,
       "name": "SHA256SUMS.txt",
-      "sha256": "6898b2b1f2de9429897d04af2c010d6989f5e533ca3c3e519fe2729b31cf01e6",
+      "sha256": "9c3b8e3abc11ababbff47e69af776e06c3fd97d403e2ae31f48bb38c64a39c13",
       "size": 1062,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/SHA256SUMS.txt"
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/SHA256SUMS.txt"
     },
     {
-      "id": 662190591,
-      "name": "kilo-proxy-0.67.4-darwin-amd64.zip",
-      "sha256": "1a9997790a9fa1f8bf217fc8612ec4b293ef7aadbe960037ea508e2ff64d2721",
-      "size": 12852711,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-0.67.4-darwin-amd64.zip"
+      "id": 662544822,
+      "name": "kilo-proxy-0.67.5-darwin-amd64.zip",
+      "sha256": "3d86f990464cd8f97e7e307c7c018ba5c7fb25f3ddc622a4c51be9d71fd59ad1",
+      "size": 12854850,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-0.67.5-darwin-amd64.zip"
     },
     {
-      "id": 662190595,
-      "name": "kilo-proxy-0.67.4-darwin-arm64.zip",
-      "sha256": "cf5e8fc7a86280be97b632b7ee6cb3cb0e27a0277eb37a976f3ac7bd0214ad55",
-      "size": 11887539,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-0.67.4-darwin-arm64.zip"
+      "id": 662544820,
+      "name": "kilo-proxy-0.67.5-darwin-arm64.zip",
+      "sha256": "6b00cd605718d57130b1044cd5e47ffa790a248d25b5d3f77f41c93be1cf48bd",
+      "size": 11889347,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-0.67.5-darwin-arm64.zip"
     },
     {
-      "id": 662190590,
-      "name": "kilo-proxy-0.67.4-linux-amd64.tar.gz",
-      "sha256": "43ec95a5c9ec46ed71a6962efa0be538af78b8456e7ede0d984faf2d0a9f0ea9",
-      "size": 13480957,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-0.67.4-linux-amd64.tar.gz"
+      "id": 662544821,
+      "name": "kilo-proxy-0.67.5-linux-amd64.tar.gz",
+      "sha256": "18ce9eaf0fb7c8d6fbf48c3d52af5a95826fbcb98f7f0563a96c8a13135e2855",
+      "size": 13483594,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-0.67.5-linux-amd64.tar.gz"
     },
     {
-      "id": 662190593,
-      "name": "kilo-proxy-0.67.4-linux-arm64.tar.gz",
-      "sha256": "a15083f3954409ec64e25e4b4baff8033db1aa20093c3a93d8915a98966dccb4",
-      "size": 12579951,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-0.67.4-linux-arm64.tar.gz"
+      "id": 662544818,
+      "name": "kilo-proxy-0.67.5-linux-arm64.tar.gz",
+      "sha256": "70c31a402913d91e9f54fc90e78379705f44e897806bf260d8305f4575906e05",
+      "size": 12581769,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-0.67.5-linux-arm64.tar.gz"
     },
     {
-      "id": 662190594,
-      "name": "kilo-proxy-0.67.4-windows-amd64.zip",
-      "sha256": "5da35cc10eba7a5860b1ec1792b99181680ac69662b6b1832f889d410a62a33d",
-      "size": 12544685,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-0.67.4-windows-amd64.zip"
+      "id": 662544826,
+      "name": "kilo-proxy-0.67.5-windows-amd64.zip",
+      "sha256": "b8b5293855c9879e364873d77f39fb68643719e97ca7fa3358bcd2472f2eb1d1",
+      "size": 12546349,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-0.67.5-windows-amd64.zip"
     },
     {
-      "id": 662190621,
-      "name": "kilo-proxy-0.67.4-windows-arm64.zip",
-      "sha256": "119deeb4f9ce8e5a4f6fc48e5a1e5f17b4415bf4d0d6298014c69425afbc9142",
-      "size": 11654801,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-0.67.4-windows-arm64.zip"
+      "id": 662544883,
+      "name": "kilo-proxy-0.67.5-windows-arm64.zip",
+      "sha256": "c599e4538c41a1fca38523a4d3d4d2ddcc2c883bbe3846043e9065ec3b9e0675",
+      "size": 11655469,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-0.67.5-windows-arm64.zip"
     },
     {
-      "id": 662190631,
-      "name": "kilo-proxy-headless-0.67.4-darwin-amd64.tar.gz",
-      "sha256": "742c62b841bab8ecb10d0006a658bb5eddfb42160ff35b42058dcbee62655c44",
-      "size": 7961530,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-headless-0.67.4-darwin-amd64.tar.gz"
+      "id": 662544889,
+      "name": "kilo-proxy-headless-0.67.5-darwin-amd64.tar.gz",
+      "sha256": "d25f3d4f95f6b4b68460393e0ad54cfdf89be44305508e9bfe7f7d7dcbea8e5c",
+      "size": 7962511,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-headless-0.67.5-darwin-amd64.tar.gz"
     },
     {
-      "id": 662190623,
-      "name": "kilo-proxy-headless-0.67.4-darwin-arm64.tar.gz",
-      "sha256": "41c2620a86ca32bca2284b9a8ce451a84ae3bb218a31fd0e4d3065faffa9de1e",
-      "size": 7529009,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-headless-0.67.4-darwin-arm64.tar.gz"
+      "id": 662544887,
+      "name": "kilo-proxy-headless-0.67.5-darwin-arm64.tar.gz",
+      "sha256": "2df349b84aeb6834003756a20cb7a67ca398c5a2b12ae132c5e5fbe03616bc2e",
+      "size": 7531018,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-headless-0.67.5-darwin-arm64.tar.gz"
     },
     {
-      "id": 662190637,
-      "name": "kilo-proxy-headless-0.67.4-linux-amd64.tar.gz",
-      "sha256": "0a15248ec5d3e4c1452ae9f0f9e3292ffbaa0bc3a9901983056a4a4b6aa30577",
-      "size": 7981132,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-headless-0.67.4-linux-amd64.tar.gz"
+      "id": 662544894,
+      "name": "kilo-proxy-headless-0.67.5-linux-amd64.tar.gz",
+      "sha256": "cdb53b2634f6ed36e11302783d1b96599ec8902b394349adc8d320695173a63e",
+      "size": 7984236,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-headless-0.67.5-linux-amd64.tar.gz"
     },
     {
-      "id": 662190630,
-      "name": "kilo-proxy-headless-0.67.4-linux-arm64.tar.gz",
-      "sha256": "5e0eec14273177c6b3c20d0118e8e1b4598cdf4eef6364267b0974a62dc8477c",
-      "size": 7442870,
-      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.4/kilo-proxy-headless-0.67.4-linux-arm64.tar.gz"
+      "id": 662544900,
+      "name": "kilo-proxy-headless-0.67.5-linux-arm64.tar.gz",
+      "sha256": "1578c24df3055331fd556479785963a72c578862061a3c681f2c2865ce8f5bd0",
+      "size": 7444168,
+      "url": "https://github.com/rosseca/kilo-proxy/releases/download/v0.67.5/kilo-proxy-headless-0.67.5-linux-arm64.tar.gz"
     }
   ],
-  "commit": "dd56bc2f3502a63e4634a01e41a02bf9d43552a2",
-  "publishedAt": "2026-10-21T10:51:24Z",
-  "releaseId": 419444051,
-  "releaseUrl": "https://github.com/rosseca/kilo-proxy/releases/tag/v0.67.4",
+  "commit": "f1c2af894e5f365dc1f140888863967aa46c4f13",
+  "publishedAt": "2026-10-21T13:08:18Z",
+  "releaseId": 419571329,
+  "releaseUrl": "https://github.com/rosseca/kilo-proxy/releases/tag/v0.67.5",
   "repository": "rosseca/kilo-proxy",
   "schemaVersion": 1,
-  "tag": "v0.67.4",
-  "tagObject": "94e66aca4976d5daa35902f1c51cc93d21dd126d",
-  "version": "0.67.4"
+  "tag": "v0.67.5",
+  "tagObject": "2574a93945ba5733ac59007b1054f26920e168e2",
+  "version": "0.67.5"
 }
