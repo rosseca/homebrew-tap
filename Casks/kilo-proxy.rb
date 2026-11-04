@@ -1,9 +1,9 @@
 cask "kilo-proxy" do
   arch arm: "arm64", intel: "amd64"
 
-  version "0.68.1"
-  sha256 arm:   "7222d889add14643731668e9c5c32c2410bf4d124a72ad31f875e1d9a8b43479",
-         intel: "74286de9def520615c421db7d9699dec1c232b3c5bd75e205779b77b9549eb7a"
+  version "0.68.2"
+  sha256 arm:   "6d565c9a53b577f0fcd79ffa6c28c6e319c2a85c69fbe1bc6be3a51355db1d61",
+         intel: "f9bd5787937b56453b0da90951edf72a695bfaecfd06402d7a36f106e12ebfee"
 
   url "https://github.com/rosseca/kilo-proxy/releases/download/v#{version}/kilo-proxy-#{version}-darwin-#{arch}.zip"
   name "Kilo Proxy"
