@@ -4,23 +4,23 @@ class KiloProxyHeadless < Formula
 
   on_macos do
     on_intel do
-      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.4/kilo-proxy-headless-0.68.4-darwin-amd64.tar.gz"
-      sha256 "81f4e6e1babf6f1b479c5fb6a44437a014c8b7c3381c716223dd5e15aa440629"
+      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.5/kilo-proxy-headless-0.68.5-darwin-amd64.tar.gz"
+      sha256 "b8289e93d4c2968a2071983f089bf60e783a5590d693de953bba61e82ecb5076"
     end
     on_arm do
-      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.4/kilo-proxy-headless-0.68.4-darwin-arm64.tar.gz"
-      sha256 "2bd15d1542df0dc8d09e8a8130265ea91f9e0bc0ddb01e9d4ec3eae86049e926"
+      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.5/kilo-proxy-headless-0.68.5-darwin-arm64.tar.gz"
+      sha256 "35a03f1eb7930f1541930fff78a37d559315e7270345eff0f0a8e9be3cf44ceb"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.4/kilo-proxy-headless-0.68.4-linux-amd64.tar.gz"
-      sha256 "a922793949825570a714db54b7523ff81a3178522fee66da9e9b9c4660a41e75"
+      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.5/kilo-proxy-headless-0.68.5-linux-amd64.tar.gz"
+      sha256 "0af77af8604d1ee33b22e94a642096239ddf5e0a48252f6b002a4b09a4fe9dcc"
     end
     on_arm do
-      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.4/kilo-proxy-headless-0.68.4-linux-arm64.tar.gz"
-      sha256 "1f5725172d51b784500a96f1d5e90eb2625eed93e96aa02783d6f17ea3197e97"
+      url "https://github.com/rosseca/kilo-proxy/releases/download/v0.68.5/kilo-proxy-headless-0.68.5-linux-arm64.tar.gz"
+      sha256 "bc584c4e33fb1e8ace7f8aebd6449f44fdefaa19dc3d38f4e39a2f28e0164f9e"
     end
   end
 
