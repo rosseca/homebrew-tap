@@ -2,8 +2,8 @@ class KiloProxyDesktop < Formula
   desc "Native desktop proxy for Kilo credits and supported agent clients"
   homepage "https://github.com/rosseca/kilo-proxy"
   url "https://github.com/rosseca/kilo-proxy.git",
-      tag:      "v0.68.6",
-      revision: "c53549292f4991319768f0724f5379c1ffb9a5e6"
+      tag:      "v0.68.7",
+      revision: "748b7e22be52636d5b799501a708d5275352ed4b"
 
   depends_on "go" => :build
   depends_on "pkgconf" => :build
